@@ -59,6 +59,11 @@ void setup() {
   Wire.write(0);     // set to zero (wakes up the MPU-6050)
   Wire.endTransmission(true);
 
+  // initialize LCD
+  // lcd.begin();
+  // Turn on the blacklight and print a message
+  lcd.backlight();
+
 }
 
 // AHRS loop
@@ -78,6 +83,8 @@ void loop()
   float Axyz[3];
   float Gxyz[3];
 
+  // clear previous values from screen
+  lcd.clear(); 
 
   Wire.beginTransmission(MPU_addr);
   Wire.write(0x3B);  // starting with register 0x3B (ACCEL_XOUT_H)
@@ -115,6 +122,45 @@ void loop()
       Serial.print(", ");
       Serial.print(G_off[2]);
       Serial.println();
+
+  /*
+      lcdDisplay(
+                  // to print X:
+                  0, // character 0  
+                  0, // line 0
+                  "X:", 
+
+                  // to print G_off[0]
+                  2, // character 2
+                  0, // line 0
+                  G_off[0]
+                  );
+
+      lcdDisplay(
+                  // to print Y:
+                  13, // character 13 
+                  0, // line 0
+                  "Y:", 
+
+                  // to print G_off[1]
+                  0, // character 0
+                  1, // line 1
+                  G_off[1]
+                  );  
+
+      lcdDisplay(
+                  // to print Z:
+                  7, // character 7 
+                  1, // line 1
+                  "Z:", 
+
+                  // to print G_off[2]
+                  9, // character 9
+                  1, // line 0
+                  G_off[2]
+                  );                         
+      delay(100);
+    */
     }
   }
 
@@ -179,6 +225,45 @@ void loop()
       Serial.print(", ");
       Serial.println(roll, 0);
     }
+
+    lcdDisplay(
+                // to print X:
+                0, // character 0  
+                0, // line 0
+                "X:", 
+
+                // to print yaw
+                2, // character 2
+                0, // line 0
+                yaw
+                );
+
+    lcdDisplay(
+                // to print Y:
+                8, // character 8
+                0, // line 0
+                "Y:", 
+
+                // to print pitch
+                10, //character 10
+                0, // line 0
+                pitch
+                );  
+
+/*
+    lcdDisplay(
+                // to print Z:
+                0, // character 0
+                1, // line 1
+                "Z:",
+
+                // to print roll
+                2, // character 2
+                1, // line 1
+                roll
+                );    
+*/      
+    delay(200);
   }
 }
 //--------------------------------------------------------------------------------------------------
@@ -265,4 +350,31 @@ void Mahony_update(float ax, float ay, float az, float gx, float gy, float gz, f
   q[1] = q[1] * recipNorm;
   q[2] = q[2] * recipNorm;
   q[3] = q[3] * recipNorm;
+}
+
+/*
+ * lcdDisplay(int tc, int tr, String title, int vc, int vr, float value)
+ * displays value and title on LCD1602
+ * How to use:
+ * If you wan to diaplay: "Voltage: 13.56mV" starting from first character
+ * on second row.
+ * use:
+ * lcdDisplay(0, 1, "Voltage: ", 13.56)
+ *   
+ * tc  is character number  (0)
+ * tr is row in the lcd (1)
+ * title is the text (Voltage:)
+ * vc value for character 
+ * vr value for  row or line
+ * value is the value (13.56)
+ */
+void lcdDisplay(int tc, int tr, String title, int vc, int vr, float value)
+{
+   
+  lcd.setCursor(tc,tr); //
+  lcd.print(title);
+  
+  lcd.setCursor(vc,vr); //
+  lcd.print(value);
+ 
 }

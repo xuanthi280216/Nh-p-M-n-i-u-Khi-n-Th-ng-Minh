@@ -34,7 +34,7 @@ void setup() {
   mpu6050.calcGyroOffsets(true);
 
   // initialize the LCD, 
-//  lcd.begin();
+  // lcd.begin();
   // Turn on the blacklight and print a message.
   lcd.backlight();   
 }
