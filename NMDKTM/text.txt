@@ -1,0 +1,18 @@
+-----------------------------------------------------
+Khối myMoto
+- External Torque: Tạo tín hiệu, mảng dữ liệu
+- Gain: hệ số nhân tín hiệu
+- Constant: moment của motor
+--------------------------
+Khối Motorcycle
+% Đầu vào
+- External Torque:  moment bên ngoài tác động
+- Motor Torque: tốc độ moment của motor
+% Đầu ra
+- Theta: góc nghiêng
+- Theta Dot: đạo hàm của góc nghiêng (tốc độ góc)
+- Inertia Wheel Speed: tốc độ của bánh xe quán tính
+--------------------------
+- Thêm Gain Kp: bộ điều khiển P trong PID để Theta dao động tại trục hoành
+- Thêm Gain Kd: bộ điều khiển D trong PID 
+Kp = 5*10^(-1); Kd = 8*10^(-2): dựa theo kinh nghiệm
