@@ -6,7 +6,7 @@ Khối myMoto
 --------------------------
 Khối Motorcycle
 % Đầu vào
-- External Torque:  moment bên ngoài tác động
+- External Torque: moment bên ngoài tác động
 - Motor Torque: tốc độ moment của motor
 % Đầu ra
 - Theta: góc nghiêng
